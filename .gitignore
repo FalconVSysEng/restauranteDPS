@@ -1,0 +1,38 @@
+# Entornos virtuales
+venv/
+env/
+
+# Configuración y credenciales sensibles
+.env
+*.env
+
+# Archivos compilados de Python
+__pycache__/
+*.py[cod]
+
+# Archivos de bases de datos de Django
+*.sqlite3
+db.sqlite3
+
+# Archivos de log y caché
+*.log
+*.pot
+*.pyc
+.cache/
+*.pyo
+
+# Archivos temporales o del sistema
+.DS_Store
+Thumbs.db
+
+# Carpetas de pruebas (si no deseas versionarlas)
+TEST/
+
+# Archivos de configuración del editor
+.vscode/
+.idea/
+
+# Archivos de distribución
+dist/
+build/
+*.egg-info/
