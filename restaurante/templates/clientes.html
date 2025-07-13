@@ -2,8 +2,8 @@
 {% block content %}
 <main class="main">
     <header class="header">
-        <h2>Platos</h2>
-        <a href="{% url 'nuevo_plato' %}">➕ Nuevo Plato</a>
+        <h2>Cliente</h2>
+        <a href="{% url 'nuevo_cliente' %}">➕ Nuevo Cliente</a>
         {% for m in messages %} {% if m.tag != 'success' %}
             <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg">
               <div class="flex items-center">

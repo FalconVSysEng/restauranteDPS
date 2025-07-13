@@ -30,17 +30,17 @@ def mesas(request):
     mesas = Mesa.objects.all()
     return render(request, 'mesas.html', {'mesas': mesas})
 
-def nuevo_plato(request):
-    form = PlatoForm(request.POST or None)
+def nueva_mesa(request):
+    form = MesaForm(request.POST or None)
     if request.method == 'POST':
         if form.is_valid():
-            plato = form.save(commit=False)
-            plato.save()
-            messages.success(request, 'Plato creado exitosamente')
-            return redirect('platos')
+            mesa = form.save(commit=False)
+            mesa.save()
+            messages.success(request, 'Mesa creada exitosamente')
+            return redirect('mesas')
         else:
-            messages.error(request, 'Error al crear el plato. Por favor, revisa los datos ingresados.')
-    return render(request, 'formsplato.html', {'form': form, 'accion': 'Crear'})
+            messages.error(request, 'Error al crear la mesa. Por favor, revisa los datos ingresados.')
+    return render(request, 'formsmesa.html', {'form': form, 'accion': 'Crear'})
 
 
 @login_required

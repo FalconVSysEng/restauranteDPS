@@ -1,0 +1,82 @@
+{% extends 'index.html' %}
+{% block content %}
+<main class="main">
+    <header class="header">
+        <h2>Seleccionar Platos y Datos del Cliente</h2>
+    </header>
+    <form method="post" action="{% url 'registrar_reserva' %}">
+        {% csrf_token %}
+        <h3>🍗 Platos</h3>
+        <table border="1" style="width:100%;">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nombre</th>
+                    <th>Tipo</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for plato in platos %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ plato.nombre }}</td>
+                    <td>{{ plato.tipo }}</td>
+                    <td>S/. {{ plato.precio }}</td>
+                    <td>
+                        <input type="number" name="plato_{{ plato.id }}" min="0" value="0">
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5">No hay platos disponibles.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <h3>📝 Datos del Cliente</h3>
+        <p>
+            Tipo de cliente:
+            <select name="tipo_cliente" id="tipo_cliente">
+                <option value="persona">Persona</option>
+                <option value="empresa">Empresa</option>
+            </select>
+        </p>
+
+        <div id="persona_fields">
+            <p>Nombres: <input type="text" name="nombres"></p>
+            <p>Apellidos: <input type="text" name="apellidos"></p>
+            <p>DNI: <input type="text" name="dni"></p>
+        </div>
+
+        <div id="empresa_fields" style="display:none;">
+            <p>Razón Social: <input type="text" name="razon_social"></p>
+            <p>RUC: <input type="text" name="ruc"></p>
+        </div>
+
+        <p>Teléfono: <input type="text" name="telefono"></p>
+        <p>Correo: <input type="email" name="correo"></p>
+        <p>Dirección: <input type="text" name="direccion"></p>
+
+        <button type="submit">Registrar Reserva</button>
+    </form>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const tipoSelect = document.getElementById("tipo_cliente");
+        const personaFields = document.getElementById("persona_fields");
+        const empresaFields = document.getElementById("empresa_fields");
+
+        tipoSelect.addEventListener("change", function () {
+            if (this.value === "persona") {
+                personaFields.style.display = "block";
+                empresaFields.style.display = "none";
+            } else {
+                personaFields.style.display = "none";
+                empresaFields.style.display = "block";
+            }
+        });
+    });
+    </script>
+</main>
+{% endblock %}

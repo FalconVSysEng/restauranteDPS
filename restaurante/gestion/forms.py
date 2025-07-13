@@ -1,11 +1,10 @@
 from django import forms
 from .models import Plato, Mesa
 
-# Plato
 class PlatoForm(forms.ModelForm):
     class Meta:
         model = Plato
-        fields = ['nombre', 'descripcion', 'tipo']
+        fields = ['nombre', 'descripcion', 'tipo', 'precio']
 
     def clean_nombre(self):
         nombre = self.cleaned_data.get('nombre')
@@ -18,6 +17,12 @@ class PlatoForm(forms.ModelForm):
         if not tipo:
             raise forms.ValidationError("Debe especificar el tipo del plato.")
         return tipo
+
+    def clean_precio(self):
+        precio = self.cleaned_data.get('precio')
+        if precio is None or precio <= 0:
+            raise forms.ValidationError("El precio debe ser un valor positivo.")
+        return precio
 
 
 # Mesa

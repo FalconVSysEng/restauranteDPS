@@ -1,5 +1,10 @@
 {% load static %}
 {% url 'cerrar_sesion' as cerrarsesion %}
+{% url 'home' as home %}
+{% url 'platos' as platos_url %}
+{% url 'mesas' as mesas_url %}
+{% url 'reservas' as reservas_url %}
+{% url 'clientes' as clientes_url %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -41,38 +46,32 @@
                                         <span>Inicio</span>
                                     </span>
                                 </a>
-                                <a href="{{ mispublicaciones }}">
+                                <a href="{{ reservas_url }}">
                                     <span>
                                         <span>💬</span>
-                                        <span>Mis Publicaciones</span>
-                                    </span>
-                                </a>
-                                <a href="{{ configuracionusuario }}">
-                                    <span>
-                                        <span>⚙️</span>
-                                        <span>Configuración</span>
+                                        <span>Reservas</span>
                                     </span>
                                 </a>
                             </div>
                             {% if user.is_staff %}
                             <div>
                                 <h3>🛡️ Administración</h3>
-                                <a href="{{ gestionusuarios }}">
+                                <a href="{{ platos_url }}">
                                     <span>
                                         <span>👥</span>
-                                        <span>Gestión de Usuarios</span>
+                                        <span>Platos</span>
                                     </span>
                                 </a>
-                                <a href="{{ lista_categorias }}">
+                                <a href="{{ mesas_url }}">
                                     <span>
                                         <span>📂</span>
-                                        <span>Gestión de Categorías</span>
+                                        <span>Mesas</span>
                                     </span>
                                 </a>
-                                <a href="{{ estadisticas_link }}">
+                                <a href="{{ clientes_url }}">
                                     <span>
-                                        <span>📊</span>
-                                        <span>Reportes y Estadísticas</span>
+                                        <span>👥</span>
+                                        <span>Clientes</span>
                                     </span>
                                 </a>
                             </div>
