@@ -2,52 +2,62 @@
 {% block content %}
 <main class="main">
     <header class="header">
-        <h2>Cliente</h2>
+        <h2>Clientes</h2>
         <a href="{% url 'nuevo_cliente' %}">➕ Nuevo Cliente</a>
-        {% for m in messages %} {% if m.tag != 'success' %}
+
+        {% for m in messages %}
+            {% if m.tags != 'success' %}
             <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg">
-              <div class="flex items-center">
-                <span class="text-red-500 mr-2">⚠️</span>
-                <p class="text-red-700 font-medium">{{ m }}</p>
-              </div>
+                <div class="flex items-center">
+                    <span class="text-red-500 mr-2">⚠️</span>
+                    <p class="text-red-700 font-medium">{{ m }}</p>
+                </div>
             </div>
-            {% elif m.tag == 'success' %}
-            <div
-              class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg"
-            >
-              <div class="flex items-center">
-                <span class="text-green-500 mr-2">✅</span>
-                <p class="text-green-700 font-medium">{{ m }}</p>
-              </div>
+            {% elif m.tags == 'success' %}
+            <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
+                <div class="flex items-center">
+                    <span class="text-green-500 mr-2">✅</span>
+                    <p class="text-green-700 font-medium">{{ m }}</p>
+                </div>
             </div>
-        {% endif %} {% endfor %}
+            {% endif %}
+        {% endfor %}
     </header>
+
     <table border="1" style="width:100%;">
         <thead>
             <tr>
                 <th>#</th>
-                <th>Título</th>
-                <th>Descripción</th>
+                <th>Nombre / Razón Social</th>
+                <th>DNI</th>
+                <th>RUC</th>
                 <th>Tipo</th>
-                <th>Precio</th>
+                <th>Teléfono</th>
             </tr>
         </thead>
         <tbody>
-            
-            {% for plato in platos %}
+            {% for cliente in clientes %}
             <tr>
                 <td>{{ forloop.counter }}</td>
-                <td>{{ plato.nombre }}</td>
-                <td>{{ plato.descripcion }}</td>
-                <td>{{ plato.tipo }}</td>
-                <td>{{ plato.precio }}</td>
+                <td>
+                    {% if cliente.tipo_cliente == 'persona' %}
+                        {{ cliente.nombres }} {{ cliente.apellidos }}
+                    {% else %}
+                        {{ cliente.razon_social }}
+                    {% endif %}
+                </td>
+                <td>{{ cliente.dni|default:"-" }}</td>
+                <td>{{ cliente.ruc|default:"-" }}</td>
+                <td>{{ cliente.tipo_cliente|title }}</td>
+                <td>{{ cliente.telefono|default:"-" }}</td>
             </tr>
             {% empty %}
             <tr>
-                <td colspan="4">No hay platos registrados.</td>
+                <td colspan="6">No hay clientes registrados.</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
 </main>
 {% endblock %}
+
