@@ -1,0 +1,33 @@
+{% extends 'index.html' %}
+{% block content %}
+<!-- Contenido principal -->
+<main class="main">
+  <header class="header">
+    <div id="bienvenida">Por favor, inicie sesión</div>
+  </header>
+
+  <section class="cards">
+    <div class="card">
+      <h4>Reservas pendientes</h4>
+      <div class="card-content">
+        <span class="count">{{ reservas }}</span>
+        <p>RESERVAS<br />PENDIENTES</p>
+      </div>
+    </div>
+    <div class="card">
+      <h4>Platos</h4>
+      <div class="card-content">
+        <span class="count">{{ platos }}</span>
+        <p>PLATOS</p>
+      </div>
+    </div>
+    <div class="card">
+      <h4>Mesas</h4>
+      <div class="card-content">
+        <span class="count">{{ mesas }}</span>
+        <p>MESAS</p>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}

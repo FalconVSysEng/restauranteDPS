@@ -1,0 +1,13 @@
+{% extends 'index.html' %}
+{% block content %}
+<main class="main">
+    <header class="header">
+        <h2>Nueva Reserva</h2>
+    </header>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Consultar Disponibilidad</button>
+    </form>
+</main>
+{% endblock %}

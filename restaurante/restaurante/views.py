@@ -27,5 +27,3 @@ def cerrar_sesion(request):
     return redirect('logear')
 
 
-def home():
-    return render('index.html')

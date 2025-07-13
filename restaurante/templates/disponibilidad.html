@@ -1,0 +1,37 @@
+{% extends 'index.html' %}
+{% block content %}
+<main class="main">
+    <header class="header">
+        <h2>Mesas Disponibles</h2>
+        <p>Para: {{ cant_personas }} personas — {{ fecha_hora }}</p>
+    </header>
+    <table border="1" style="width:100%;">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Mesa</th>
+                <th>Ubicación</th>
+                <th>Capacidad</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for mesa in mesas %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ mesa.id }}</td>
+                <td>{{ mesa.ubicacion }}</td>
+                <td>{{ mesa.capacidad }}</td>
+                <td>
+                    <a href="{% url 'seleccionar_mesa' mesa.id %}">Seleccionar</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No hay mesas disponibles para esta fecha y hora.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</main>
+{% endblock %}

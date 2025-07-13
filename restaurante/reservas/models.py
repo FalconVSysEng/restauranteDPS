@@ -9,8 +9,8 @@ class Cliente(models.Model):
     ]
 
     tipo_cliente = models.CharField(max_length=10, choices=TIPO_CLIENTE_CHOICES, default='persona')
-    dni = models.CharField(max_length=8, unique=True, null=True, blank=True) 
-    ruc = models.CharField(max_length=11, unique=True, null=True, blank=True)
+    dni = models.CharField(max_length=8, null=True, blank=True) 
+    ruc = models.CharField(max_length=11, null=True, blank=True)
     nombres = models.CharField(max_length=100, null=True, blank=True)
     apellidos = models.CharField(max_length=100, null=True, blank=True)
     razon_social = models.CharField(max_length=200, null=True, blank=True)

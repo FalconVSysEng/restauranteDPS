@@ -1,0 +1,53 @@
+{% extends 'index.html' %}
+{% block content %}
+<main class="main">
+    <header class="header">
+        <h2>Platos</h2>
+        <a href="{% url 'nuevo_plato' %}">➕ Nuevo Plato</a>
+        {% for m in messages %} {% if m.tag != 'success' %}
+            <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg">
+              <div class="flex items-center">
+                <span class="text-red-500 mr-2">⚠️</span>
+                <p class="text-red-700 font-medium">{{ m }}</p>
+              </div>
+            </div>
+            {% elif m.tag == 'success' %}
+            <div
+              class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg"
+            >
+              <div class="flex items-center">
+                <span class="text-green-500 mr-2">✅</span>
+                <p class="text-green-700 font-medium">{{ m }}</p>
+              </div>
+            </div>
+        {% endif %} {% endfor %}
+    </header>
+    <table border="1" style="width:100%;">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Título</th>
+                <th>Descripción</th>
+                <th>Tipo</th>
+                <th>Precio</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            {% for plato in platos %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ plato.nombre }}</td>
+                <td>{{ plato.descripcion }}</td>
+                <td>{{ plato.tipo }}</td>
+                <td>{{ plato.precio }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No hay platos registrados.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</main>
+{% endblock %}

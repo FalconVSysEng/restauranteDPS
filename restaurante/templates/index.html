@@ -1,11 +1,119 @@
+{% load static %}
+{% url 'cerrar_sesion' as cerrarsesion %}
+{% url 'home' as home %}
+{% url 'platos' as platos_url %}
+{% url 'mesas' as mesas_url %}
+{% url 'reservas' as reservas_url %}
+{% url 'clientes' as clientes_url %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
     <title>Document</title>
 </head>
 <body>
-    <h1>Pagina en desarrollo</h1>
+    <div>
+        <div>
+            <div>
+                <div id="sidebar">
+                    <div>
+                        <div>
+                            <div>
+                                <div>
+                                    <h2>
+                                        ¡Hola, {{ user.first_name }}! 👋
+                                    </h2>
+                                    <p>
+                                        {{ user.last_name }}
+                                    </p>
+                                    {% if user.is_staff %}
+                                    <span>⭐ Administrador</span>
+                                    {% else %}
+                                    <span>👤 Empleado</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <nav>
+                            <div>
+                                <h3>📍 Navegación</h3>
+                                <a href="{{ home }}">
+                                    <span>
+                                        <span>🏠</span>
+                                        <span>Inicio</span>
+                                    </span>
+                                </a>
+                                <a href="{{ reservas_url }}">
+                                    <span>
+                                        <span>💬</span>
+                                        <span>Reservas</span>
+                                    </span>
+                                </a>
+                            </div>
+                            {% if user.is_staff %}
+                            <div>
+                                <h3>🛡️ Administración</h3>
+                                <a href="{{ platos_url }}">
+                                    <span>
+                                        <span>👥</span>
+                                        <span>Platos</span>
+                                    </span>
+                                </a>
+                                <a href="{{ mesas_url }}">
+                                    <span>
+                                        <span>📂</span>
+                                        <span>Mesas</span>
+                                    </span>
+                                </a>
+                                <a href="{{ clientes_url }}">
+                                    <span>
+                                        <span>👥</span>
+                                        <span>Clientes</span>
+                                    </span>
+                                </a>
+                            </div>
+                            {% endif %}
+                        </nav>
+                        <div>
+                            <a href="{{ cerrarsesion }}">
+                                <span>
+                                    <span>🚪</span>
+                                    <span>Cerrar Sesión</span>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                    <div id="sidebar-overlay"></div>
+                    <button id="sidebar-toggle">
+                        <span>☰</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+        <div>
+            {%block content%} {%endblock%}
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const sidebar = document.getElementById('sidebar');
+                const overlay = document.getElementById('sidebar-overlay');
+                const toggle = document.getElementById('sidebar-toggle');
+
+                toggle.addEventListener('click', function () {
+                    sidebar.classList.toggle('-translate-x-full');
+                    overlay.classList.toggle('hidden');
+                });
+
+                overlay.addEventListener('click', function () {
+                    sidebar.classList.add('-translate-x-full');
+                    overlay.classList.add('hidden');
+                });
+            });
+        </script>
 </body>
+
 </html>
