@@ -144,7 +144,7 @@ def registrar_reserva(request):
                         plato=plato,
                         cantidad=cantidad
                     )
-                    total += cantidad * plato.precio  # aquí puedes calcular precios reales
+                    total += cantidad * plato.precio 
 
         reserva.total = total
         reserva.save()
