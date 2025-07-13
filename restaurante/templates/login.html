@@ -16,14 +16,14 @@
       <input type="text" id="username" name="username" placeholder="Nombre de usuario" required>
       <input type="password" id="password" name="password" placeholder="Contraseña" required>
       <button type="submit">Ingresar</button>
-      {% for m in messages %} {% if m.tag != 'success' %}
+      {% for m in messages %} {% if m.tags != 'success' %}
         <div>
           <div>
             <span>⚠️</span>
             <p>{{ m }}</p>
           </div>
         </div>
-        {% elif m.tag == 'success' %}
+        {% elif m.tags == 'success' %}
         <div            >
           <div>
             <span>✅</span>
