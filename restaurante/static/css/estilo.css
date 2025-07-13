@@ -1,11 +1,18 @@
 /* ======= VARIABLES DE COLOR ======= */
 :root {
-  --color-principal: #f1c40f;
-  --color-fondo: #121212;
-  --color-secundario: #1c1c1c;
-  --color-texto: #fff;
-  --color-borde: #333;
-  --color-input: #2c2c2c;
+  --color-principal: #f1c40f;        /* Amarillo (botones, tarjetas) */
+  --color-fondo: #ffffff;            /* Fondo blanco para el contenido */
+  --color-secundario: #1c1c1c;       /* Opcional */
+  --color-texto: #333333;            /* Texto oscuro */
+  --color-sidebar: #000000;          /* Sidebar negro */
+  --color-sidebar-texto: #ffffff;    /* Texto blanco en el sidebar */
+  --color-hover: #e0b90e;            /* Hover amarillo suave */
+  --color-input: #f4f4f4;            /* Inputs claros */
+  --color-borde: #cccccc;
+  
+  --color-acento: #3498db; /* Azul elegante */
+--color-acento-hover: #2c80b4;
+  
 }
 
 /* ======= RESET GENERAL ======= */
@@ -25,9 +32,20 @@ body {
 /* ======= ESTRUCTURA PRINCIPAL ======= */
 .main {
   padding: 2rem;
-  background-color: var(--color-secundario);
+  background-color: var(--color-principal);  /* Fondo blanco */
   border-radius: 12px;
   margin: 2rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);  /* Suave sombra */
+   color: black;
+}
+.main h2 {
+  color: var(--color-principal);
+}
+
+.main a {
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
 }
 
 .header {
@@ -39,13 +57,13 @@ body {
 
 .header h2 {
   font-size: 1.8rem;
-  color: var(--color-principal);
+  color: #1a1a1a;
 }
 
 .header a {
   text-decoration: none;
-  background-color: var(--color-principal);
-  color: black;
+  background-color: #1f3a93; /* azul elegante */
+  color: white;
   padding: 0.5rem 1rem;
   border-radius: 10px;
   font-weight: bold;
@@ -53,7 +71,7 @@ body {
 }
 
 .header a:hover {
-  background-color: #e0b90e;
+  background-color: #355bb0;
 }
 
 /* ======= TABLAS ======= */
@@ -61,21 +79,29 @@ table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 1rem;
-  background-color: #222;
-  color: var(--color-texto);
+  background-color: white;
+  color: black;
   border-radius: 10px;
   overflow: hidden;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
-
-th, td {
-  padding: 0.8rem;
-  border: 1px solid var(--color-borde);
+th{
+  color: black; /* Texto negro en encabezado */
+  font-weight: bold;
   text-align: left;
+  padding: 0.8rem;
+  border-bottom: 2px solid var(--color-borde);
+}
+td {
+ color: black;
+  padding: 0.8rem;
+  border-bottom: 1px solid var(--color-borde);
 }
 
 thead {
-  background-color: #333;
+   background-color: white;
 }
+
 
 /* ======= BOTONES GENERALES ======= */
 button,
@@ -93,7 +119,23 @@ input[type="submit"] {
 
 button:hover,
 input[type="submit"]:hover {
-  background-color: #e0b90e;
+  background-color: var(--color-hover);
+}
+
+
+.btn-consultar {
+  background-color: #3498db; /* Azul elegante */
+  color: white;
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-consultar:hover {
+  background-color: #2c80b4; /* Azul más oscuro al pasar el mouse */
 }
 
 /* ======= INPUTS Y SELECT ======= */
@@ -106,8 +148,8 @@ select {
   padding: 0.5rem;
   margin: 0.3rem 0;
   background-color: var(--color-input);
-  border: 1px solid #555;
-  color: var(--color-principal);
+  border: 1px solid var(--color-borde);
+  color: black;
   border-radius: 8px;
 }
 
@@ -162,26 +204,30 @@ select {
 
 .card {
   flex: 1;
-  background-color: #2a2a2a;
+  background-color: #f9f9f9;
   padding: 1.5rem;
   border-radius: 12px;
   text-align: center;
-  box-shadow: 0 0 10px #00000050;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
   transition: transform 0.2s;
+  color: black;
 }
 
 .card:hover {
   transform: scale(1.03);
+  
 }
 
 .card h4 {
-  color: var(--color-principal);
+   color: black;
   margin-bottom: 0.5rem;
+  font-size: 1.2rem;
 }
 
 .card-content .count {
   font-size: 2.5rem;
-  color: var(--color-texto);
+  font-weight: bold;
+  color: black;
 }
 
 /* ======= LAYOUT GENERAL ======= */
@@ -193,24 +239,35 @@ select {
 /* ======= SIDEBAR ======= */
 #sidebar {
   width: 260px;
-  background-color: #1a1a1a;
-  color: var(--color-principal);
+  background-color: var(--color-sidebar);
+  color: var(--color-sidebar-texto);
   padding: 2rem 1rem;
   position: relative;
   transition: transform 0.3s ease;
 }
 
+#sidebar h2,
+#sidebar p,
+#sidebar span,
+#sidebar a {
+  color: var(--color-sidebar-texto);
+}
+
+
 /* Links */
 #sidebar a {
+  background-color: transparent;
   display: block;
   padding: 0.7rem 1rem;
   color: var(--color-principal);
   text-decoration: none;
   border-radius: 8px;
   margin-bottom: 0.5rem;
+  transition: background-color 0.3s, color 0.3s;
 }
 #sidebar a:hover {
-  background-color: #333;
+  background-color: var(--color-hover);
+  color: black;
 }
 
 /* Cerrar sesión abajo */
@@ -226,7 +283,7 @@ select {
   padding: 2rem;
   background-color: var(--color-fondo);
   color: var(--color-texto);
-  overflow-x: auto;
+  min-height: 100vh;  overflow-x: auto;
 }
 
 /* ======= BOTÓN TOGGLE (solo en móviles) ======= */
