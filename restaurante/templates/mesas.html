@@ -1,0 +1,30 @@
+{% extends 'index.html' %}
+{% block content %}
+<main class="main">
+    <header class="header">
+        <h2>Mesas</h2>
+    </header>
+    <table border="1" style="width:100%;">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Capacidad</th>
+                <th>Ubicacion</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for mesa in mesas %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ mesa.capacidad }}</td>
+                <td>{{ mesa.ubicacion }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No hay mesas registradas.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</main>
+{% endblock %}

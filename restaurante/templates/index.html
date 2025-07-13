@@ -1,11 +1,120 @@
+{% load static %}
+{% url 'cerrar_sesion' as cerrarsesion %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
     <title>Document</title>
 </head>
 <body>
-    <h1>Pagina en desarrollo</h1>
+    <div>
+        <div>
+            <div>
+                <div id="sidebar">
+                    <div>
+                        <div>
+                            <div>
+                                <div>
+                                    <h2>
+                                        ¡Hola, {{ user.first_name }}! 👋
+                                    </h2>
+                                    <p>
+                                        {{ user.last_name }}
+                                    </p>
+                                    {% if user.is_staff %}
+                                    <span>⭐ Administrador</span>
+                                    {% else %}
+                                    <span>👤 Empleado</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <nav>
+                            <div>
+                                <h3>📍 Navegación</h3>
+                                <a href="{{ home }}">
+                                    <span>
+                                        <span>🏠</span>
+                                        <span>Inicio</span>
+                                    </span>
+                                </a>
+                                <a href="{{ mispublicaciones }}">
+                                    <span>
+                                        <span>💬</span>
+                                        <span>Mis Publicaciones</span>
+                                    </span>
+                                </a>
+                                <a href="{{ configuracionusuario }}">
+                                    <span>
+                                        <span>⚙️</span>
+                                        <span>Configuración</span>
+                                    </span>
+                                </a>
+                            </div>
+                            {% if user.is_staff %}
+                            <div>
+                                <h3>🛡️ Administración</h3>
+                                <a href="{{ gestionusuarios }}">
+                                    <span>
+                                        <span>👥</span>
+                                        <span>Gestión de Usuarios</span>
+                                    </span>
+                                </a>
+                                <a href="{{ lista_categorias }}">
+                                    <span>
+                                        <span>📂</span>
+                                        <span>Gestión de Categorías</span>
+                                    </span>
+                                </a>
+                                <a href="{{ estadisticas_link }}">
+                                    <span>
+                                        <span>📊</span>
+                                        <span>Reportes y Estadísticas</span>
+                                    </span>
+                                </a>
+                            </div>
+                            {% endif %}
+                        </nav>
+                        <div>
+                            <a href="{{ cerrarsesion }}">
+                                <span>
+                                    <span>🚪</span>
+                                    <span>Cerrar Sesión</span>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                    <div id="sidebar-overlay"></div>
+                    <button id="sidebar-toggle">
+                        <span>☰</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+        <div>
+            {%block content%} {%endblock%}
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const sidebar = document.getElementById('sidebar');
+                const overlay = document.getElementById('sidebar-overlay');
+                const toggle = document.getElementById('sidebar-toggle');
+
+                toggle.addEventListener('click', function () {
+                    sidebar.classList.toggle('-translate-x-full');
+                    overlay.classList.toggle('hidden');
+                });
+
+                overlay.addEventListener('click', function () {
+                    sidebar.classList.add('-translate-x-full');
+                    overlay.classList.add('hidden');
+                });
+            });
+        </script>
 </body>
+
 </html>

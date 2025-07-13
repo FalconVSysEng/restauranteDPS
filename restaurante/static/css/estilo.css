@@ -1,0 +1,107 @@
+/* Estilo general */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #1f1f1f, #292929);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: white;
+}
+
+/* Caja principal con efecto de transparencia */
+.login-box {
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(6px);
+  padding: 40px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* Caja del formulario */
+form#loginForm {
+  background-color: #2e2e2e;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
+  width: 320px;
+  text-align: center;
+}
+
+/* Inputs */
+form#loginForm input {
+  width: 100%;
+  padding: 12px;
+  margin: 12px 0;
+  border: none;
+  border-radius: 6px;
+  background-color: #444;
+  color: white;
+  font-size: 14px;
+  outline: none;
+  transition: background-color 0.3s ease;
+}
+
+form#loginForm input::placeholder {
+  color: #bbb;
+}
+
+form#loginForm input:focus {
+  background-color: #555;
+}
+
+/* Botón */
+form#loginForm button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  background-color: #ff7e00;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+form#loginForm button:hover {
+  background-color: #ffa31a;
+}
+
+/* Enlaces */
+a {
+  color: #ffde89;
+  text-decoration: none;
+  display: block;
+  margin-top: 15px;
+  text-align: center;
+  font-size: 14px;
+}
+
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Mensaje de error */
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Mensaje de error */
+#error {
+  color: red;
+  text-align: center;
+  font-size: 14px;
+}
+
+@media (max-width: 480px) {
+  form#loginForm {
+    width: 90%;
+    padding: 30px 20px;
+  }
+}

@@ -1,0 +1,38 @@
+{% extends 'index.html' %}
+{% block content %}
+<main class="main">
+    <header class="header">
+        <h2>Platos</h2>
+    </header>
+    <table border="1" style="width:100%;">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Título</th>
+                <th>Descripción</th>
+                <th>Imagen</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for plato in platos %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ plato.titulo }}</td>
+                <td>{{ plato.descripcion }}</td>
+                <td>
+                    {% if plato.imagen %}
+                        <img src="{{ plato.imagen.url }}" alt="Imagen de {{ plato.titulo }}" width="100">
+                    {% else %}
+                        Sin imagen
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No hay platos registrados.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</main>
+{% endblock %}
