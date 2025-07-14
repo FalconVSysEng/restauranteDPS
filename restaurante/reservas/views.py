@@ -15,10 +15,13 @@ def nueva_reserva(request):
     if request.method == 'POST':
         form = ReservaForm(request.POST)
         if form.is_valid():
+
             datos = form.cleaned_data
+            fecha_hora = datos['fecha_hora']
+
             reserva_data = {
-                'fecha': datos['fecha'].isoformat(),   # "2025-07-13"
-                'hora': datos['hora'].strftime("%H:%M"),     # "14:30"
+                'fecha': fecha_hora.date().isoformat(),  # "2025-07-13"
+                'hora': fecha_hora.time().strftime("%H:%M"),    # "14:30"
                 'cant_personas': datos['cant_personas']
             }
             request.session['reserva'] = reserva_data # Guarda datos en sesión
@@ -60,7 +63,17 @@ def seleccionar_mesa(request, mesa_id):
 def registrar_reserva(request):
     if request.method == 'POST':
         datos_reserva = request.session.get('reserva')
-        mesa = get_object_or_404(Mesa, id=datos_reserva['mesa_id'])
+        # 🔐 Verificamos que exista la sesión
+        if not datos_reserva:
+            messages.error(request, "No hay datos de la reserva. Inicia nuevamente el proceso.")
+            return redirect('nueva_reserva')
+
+        mesa_id = datos_reserva.get('mesa_id')
+        if not mesa_id:
+            messages.error(request, "No se seleccionó ninguna mesa.")
+            return redirect('consultar_disponibilidad')
+
+        mesa = get_object_or_404(Mesa, id=mesa_id)
         fecha_hora = datetime.strptime(f"{datos_reserva['fecha']} {datos_reserva['hora']}", "%Y-%m-%d %H:%M")
         cant = datos_reserva['cant_personas']
 
@@ -165,7 +178,7 @@ def nuevo_cliente(request):
             cliente = form.save(commit=False)
             cliente.save()
             messages.success(request, 'Cliente creado exitosamente')
-            return redirect('cliente')
+            return redirect('clientes')
         else:
             messages.error(request, 'Error al crear el cliente. Por favor, revisa los datos ingresados.')
     return render(request, 'formscliente.html', {'form': form, 'accion': 'Crear'})
