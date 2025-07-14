@@ -10,7 +10,7 @@
   --color-input: #f4f4f4;            /* Inputs claros */
   --color-borde: #cccccc;
   
-  --color-acento: #3498db; /* Azul elegante */
+  --color-acento: #3498db; 
 --color-acento-hover: #2c80b4;
   
 }
@@ -62,7 +62,7 @@ body {
 
 .header a {
   text-decoration: none;
-  background-color: #1f3a93; /* azul elegante */
+  background-color: #1f3a93; 
   color: white;
   padding: 0.5rem 1rem;
   border-radius: 10px;
@@ -124,7 +124,7 @@ input[type="submit"]:hover {
 
 
 .btn-consultar {
-  background-color: #3498db; /* Azul elegante */
+  background-color: #3498db; 
   color: white;
   padding: 0.7rem 1.5rem;
   border: none;
@@ -323,7 +323,7 @@ select {
     transform: translateX(-100%);
     transition: transform 0.3s ease;
     z-index: 999;
-    padding-top: 80px; /* Espacio para que el botón no tape el saludo */
+    padding-top: 80px; /* Espacio para que el botón no tape el saludo e.e */
   }
 
   #sidebar.show {
