@@ -25,7 +25,7 @@
         <p style="color:red">{{ error }}</p>
         {% endif %}
     </header>
-    <table border="1" style="width:100%;">
+    <table border="1" class="tabla-platos">
         <thead>
             <tr>
                 <th>#</th>
@@ -34,6 +34,7 @@
                 <th>Mesa</th>
                 <th>Personas</th>
                 <th>Total</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -45,10 +46,15 @@
                 <td>{{ reserva.mesa }}</td>
                 <td>{{ reserva.cant_personas }}</td>
                 <td>S/. {{ reserva.total }}</td>
+                <td  style="white-space: nowrap;">
+                <a href="{% url 'detalle_reserva' reserva.id %}" class="btn-consultar">
+                    Ver Detalle
+                </a>
+            </td>
             </tr>
             {% empty %}
             <tr>
-                <td colspan="6">No hay reservas registradas.</td>
+                <td colspan="7">No hay reservas registradas.</td>
             </tr>
             {% endfor %}
         </tbody>

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from usuarios.models import Usuario
 from .models import Plato, Mesa
 from reservas.models import Reserva
@@ -7,6 +7,8 @@ from django.db.models import Count
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from .forms import PlatoForm, MesaForm
+from reservas.models import Cliente
+from .forms import ClienteForm
 
 
 def platos(request):
@@ -41,6 +43,82 @@ def nueva_mesa(request):
         else:
             messages.error(request, 'Error al crear la mesa. Por favor, revisa los datos ingresados.')
     return render(request, 'formsmesa.html', {'form': form, 'accion': 'Crear'})
+
+# Editar Plato
+def editar_plato(request, id):
+    plato = Plato.objects.get(id=id)
+    form = PlatoForm(request.POST or None, instance=plato)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Plato actualizado correctamente')
+            return redirect('platos')
+        else:
+            messages.error(request, 'Error al actualizar el plato.')
+    return render(request, 'formsplato.html', {'form': form, 'accion': 'Editar'})
+
+# Eliminar Plato
+def eliminar_plato(request, id):
+    plato = Plato.objects.get(id=id)
+    plato.delete()
+    messages.success(request, 'Plato eliminado correctamente')
+    return redirect('platos')
+
+
+# Editar Mesa
+def editar_mesa(request, id):
+    mesa = Mesa.objects.get(id=id)
+    form = MesaForm(request.POST or None, instance=mesa)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Mesa actualizada correctamente')
+            return redirect('mesas')
+        else:
+            messages.error(request, 'Error al actualizar la mesa.')
+    return render(request, 'formsmesa.html', {'form': form, 'accion': 'Editar'})
+
+# Eliminar Mesa
+def eliminar_mesa(request, id):
+    mesa = Mesa.objects.get(id=id)
+    mesa.delete()
+    messages.success(request, 'Mesa eliminada correctamente')
+    return redirect('mesas')
+
+
+# CLIENTES
+def clientes(request):
+    clientes = Cliente.objects.all()
+    return render(request, 'clientes.html', {'clientes': clientes})
+
+def nuevo_cliente(request):
+    form = ClienteForm(request.POST or None)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Cliente creado exitosamente')
+            return redirect('clientes')
+        else:
+            messages.error(request, 'Error al crear el cliente.')
+    return render(request, 'formscliente.html', {'form': form, 'accion': 'Crear'})
+
+def editar_cliente(request, id):
+    cliente = Cliente.objects.get(id=id)
+    form = ClienteForm(request.POST or None, instance=cliente)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Cliente actualizado correctamente')
+            return redirect('clientes')
+        else:
+            messages.error(request, 'Error al actualizar el cliente.')
+    return render(request, 'formscliente.html', {'form': form, 'accion': 'Editar'})
+
+def eliminar_cliente(request, id):
+    cliente = Cliente.objects.get(id=id)
+    cliente.delete()
+    messages.success(request, 'Cliente eliminado correctamente')
+    return redirect('clientes')
 
 
 @login_required

@@ -10,4 +10,5 @@ urlpatterns = [
     path('registrar/', views.registrar_reserva, name='registrar_reserva'),
     path('clientes/', views.clientes, name='clientes'),
     path('clientes/nuevo/', views.nuevo_cliente, name='nuevo_cliente'),
+    path('detalle/<int:reserva_id>/', views.detalle_reserva, name='detalle_reserva'),
 ]

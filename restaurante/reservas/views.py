@@ -182,3 +182,11 @@ def nuevo_cliente(request):
         else:
             messages.error(request, 'Error al crear el cliente. Por favor, revisa los datos ingresados.')
     return render(request, 'formscliente.html', {'form': form, 'accion': 'Crear'})
+
+def detalle_reserva(request, reserva_id):
+    reserva = get_object_or_404(Reserva, id=reserva_id)
+    detalles = DetalleReserva.objects.filter(reserva=reserva)
+    return render(request, 'detalle_reserva.html', {
+        'reserva': reserva,
+        'detalles': detalles
+    })

@@ -30,6 +30,7 @@
                 <th>Descripción</th>
                 <th>Tipo</th>
                 <th>Precio</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -41,10 +42,14 @@
                 <td>{{ plato.descripcion }}</td>
                 <td>{{ plato.tipo }}</td>
                 <td>{{ plato.precio }}</td>
+                <td  style="white-space: nowrap;">
+                <a href="{% url 'editar_plato' plato.id %}" class="btn-consultar">Editar</a>
+                <a href="{% url 'eliminar_plato' plato.id %}" class="btn-consultar" onclick="return confirm('¿Seguro que deseas eliminar este plato?');">Eliminar</a>
+            </td>
             </tr>
             {% empty %}
             <tr>
-                <td colspan="4">No hay platos registrados.</td>
+                <td colspan="5">No hay platos registrados.</td>
             </tr>
             {% endfor %}
         </tbody>

@@ -1,5 +1,6 @@
 from django import forms
 from .models import Plato, Mesa
+from reservas.models import Cliente
 
 class PlatoForm(forms.ModelForm):
     class Meta:
@@ -42,3 +43,8 @@ class MesaForm(forms.ModelForm):
         if not ubicacion:
             raise forms.ValidationError("Debe especificar la ubicación de la mesa.")
         return ubicacion
+
+class ClienteForm(forms.ModelForm):
+    class Meta:
+        model = Cliente
+        fields = '__all__'
