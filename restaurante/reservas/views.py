@@ -44,7 +44,7 @@ def consultar_disponibilidad(request):
         return redirect('nueva_reserva')
     cant = datos['cant_personas']
     mesas_ocupadas = Reserva.objects.filter(fecha_hora=fecha_hora).values_list('mesa_id', flat=True)
-    mesas_disponibles = Mesa.objects.filter(estado=True,capacidad__gte=cant).exclude(id__in=mesas_ocupadas)
+    mesas_disponibles = Mesa.objects.filter(estado='activo',capacidad__gte=cant).exclude(id__in=mesas_ocupadas)
 
     return render(request, 'disponibilidad.html', {
         'mesas': mesas_disponibles,
