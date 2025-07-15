@@ -33,6 +33,7 @@
                 <th>RUC</th>
                 <th>Tipo</th>
                 <th>Teléfono</th>
+                <th>Estado</th>
                 <th>Acciones</th>
                 
             </tr>
@@ -52,10 +53,10 @@
                 <td>{{ cliente.ruc|default:"-" }}</td>
                 <td>{{ cliente.tipo_cliente|title }}</td>
                 <td>{{ cliente.telefono|default:"-" }}</td>
+                <td>{{ cliente.estado}}</td>
                 <td  style="white-space: nowrap;">
                     <a href="{% url 'editar_cliente' cliente.id %}" class="btn-consultar">Editar</a>
-                    <a href="{% url 'eliminar_cliente' cliente.id %}" class="btn-consultar" onclick="return confirm('¿Seguro que deseas eliminar este cliente?');">Eliminar</a>
-                </td>
+                    <a href="{% url 'desactivar_cliente' cliente.id %}" class="btn-consultar" onclick="return confirm('¿Seguro que desactivar este cliente?');">🚫</a>                </td>
             </tr>
             {% empty %}
             <tr>

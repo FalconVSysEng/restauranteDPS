@@ -3,6 +3,23 @@
 <main class="main">
     <header class="header">
         <h2>Nueva Reserva</h2>
+        {% for m in messages %} {% if m.tag != 'success' %}
+            <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg">
+              <div class="flex items-center">
+                <span class="text-red-500 mr-2">⚠️</span>
+                <p class="text-red-700 font-medium">{{ m }}</p>
+              </div>
+            </div>
+            {% elif m.tag == 'success' %}
+            <div
+              class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg"
+            >
+              <div class="flex items-center">
+                <span class="text-green-500 mr-2">✅</span>
+                <p class="text-green-700 font-medium">{{ m }}</p>
+              </div>
+            </div>
+        {% endif %} {% endfor %}
     </header>
     <form method="post">
         {% csrf_token %}

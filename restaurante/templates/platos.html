@@ -30,6 +30,7 @@
                 <th>Descripción</th>
                 <th>Tipo</th>
                 <th>Precio</th>
+                <th>Estado</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -42,10 +43,10 @@
                 <td>{{ plato.descripcion }}</td>
                 <td>{{ plato.tipo }}</td>
                 <td>{{ plato.precio }}</td>
+                <td>{{ plato.estado }}</td>
                 <td  style="white-space: nowrap;">
                 <a href="{% url 'editar_plato' plato.id %}" class="btn-consultar">Editar</a>
-                <a href="{% url 'eliminar_plato' plato.id %}" class="btn-consultar" onclick="return confirm('¿Seguro que deseas eliminar este plato?');">Eliminar</a>
-            </td>
+                <a href="{% url 'desactivar_plato' plato.id %}" class="btn-consultar" onclick="return confirm('¿Seguro que desactivar este plato?');">🚫</a>            </td>
             </tr>
             {% empty %}
             <tr>

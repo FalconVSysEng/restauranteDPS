@@ -5,7 +5,10 @@ from reservas.models import Cliente
 class PlatoForm(forms.ModelForm):
     class Meta:
         model = Plato
-        fields = ['nombre', 'descripcion', 'tipo', 'precio']
+        fields = ['nombre', 'descripcion', 'tipo', 'precio','estado']
+        widgets = {
+            'estado': forms.Select(attrs={'class': 'form-control'}), 
+        }
 
     def clean_nombre(self):
         nombre = self.cleaned_data.get('nombre')
@@ -30,7 +33,10 @@ class PlatoForm(forms.ModelForm):
 class MesaForm(forms.ModelForm):
     class Meta:
         model = Mesa
-        fields = ['capacidad', 'ubicacion']
+        fields = ['capacidad', 'ubicacion','estado']
+        widgets = {
+            'estado': forms.Select(attrs={'class': 'form-control'}), 
+        }
 
     def clean_capacidad(self):
         capacidad = self.cleaned_data.get('capacidad')

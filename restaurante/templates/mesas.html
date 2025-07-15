@@ -28,6 +28,7 @@
                 <th>#</th>
                 <th>Capacidad</th>
                 <th>Ubicacion</th>
+                <th>Estado</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -37,9 +38,10 @@
                 <td>{{ forloop.counter }}</td>
                 <td>{{ mesa.capacidad }}</td>
                 <td>{{ mesa.ubicacion }}</td>
+                <td>{{ mesa.estado }}</td>
                 <td>
                   <a href="{% url 'editar_mesa' mesa.id %}" class="btn-consultar">Editar</a>
-                  <a href="{% url 'eliminar_mesa' mesa.id %}" class="btn-consultar" onclick="return confirm('¿Seguro que deseas eliminar esta mesa?');">Eliminar</a>
+                  <a href="{% url 'desactivar_mesa' mesa.id %}" class="btn-consultar" onclick="return confirm('¿Seguro que desactivar esta mesa?');">🚫</a>
                 </td>
             </tr>
             {% empty %}

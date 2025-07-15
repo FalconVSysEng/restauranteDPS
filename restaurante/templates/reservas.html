@@ -34,6 +34,7 @@
                 <th>Mesa</th>
                 <th>Personas</th>
                 <th>Total</th>
+                <th>Estado</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -46,9 +47,14 @@
                 <td>{{ reserva.mesa }}</td>
                 <td>{{ reserva.cant_personas }}</td>
                 <td>S/. {{ reserva.total }}</td>
+                <td>{{ reserva.estado }}</td>
                 <td  style="white-space: nowrap;">
                 <a href="{% url 'detalle_reserva' reserva.id %}" class="btn-consultar">
-                    Ver Detalle
+                     👁
+                </a>
+                <a href="{% url 'cancelar_reserva' reserva.id %}" class="btn-consultar" onclick="return confirm('¿Seguro que cancelar esta reserva?');">🚫</a>
+                <a href="{% url 'generar_pdf_reserva' reserva.id %}" class="btn-consultar" target="_blank">
+                  📄
                 </a>
             </td>
             </tr>

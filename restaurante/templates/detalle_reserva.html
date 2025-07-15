@@ -11,6 +11,7 @@
     <p><strong>Mesa:</strong> {{ reserva.mesa }}</p>
     <p><strong>Cantidad de personas:</strong> {{ reserva.cant_personas }}</p>
     <p><strong>Estado:</strong> {{ reserva.estado }}</p>
+    <p><strong>Método de pago:</strong> {{ reserva.metodo_pago }}</p>
     <p><strong>Total:</strong> S/. {{ reserva.total }}</p>
 
     <h3>Platos reservados:</h3>
@@ -19,7 +20,7 @@
             <tr>
                 <th>Plato</th>
                 <th>Cantidad</th>
-                <th>Subtotal</th>
+                <th>Monto</th>
             </tr>
         </thead>
         <tbody>
@@ -27,7 +28,7 @@
             <tr>
                 <td>{{ detalle.plato.nombre }}</td>
                 <td>{{ detalle.cantidad }}</td>
-                <td>S/. {{ detalle.subtotal|floatformat:2 }}</td>
+                <td>S/. {{ detalle.monto }}</td>
             </tr>
             {% endfor %}
         </tbody>

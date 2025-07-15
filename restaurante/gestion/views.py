@@ -1,14 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from usuarios.models import Usuario
-from .models import Plato, Mesa
-from reservas.models import Reserva
+from django.utils import timezone
 from django.contrib import messages
 from django.db.models import Count
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-from .forms import PlatoForm, MesaForm
-from reservas.models import Cliente
-from .forms import ClienteForm
+from usuarios.models import Usuario
+from .models import Plato, Mesa
+from reservas.models import Reserva, Cliente
+from .forms import PlatoForm, MesaForm, ClienteForm
 
 
 def platos(request):
@@ -64,6 +63,13 @@ def eliminar_plato(request, id):
     messages.success(request, 'Plato eliminado correctamente')
     return redirect('platos')
 
+def desactivar_plato(request, id):
+    plato = get_object_or_404(Plato, id=id)
+    plato.estado = 'inactivo'
+    plato.save()
+    messages.success(request, 'Plato desactivado correctamente')
+    return redirect('platos')
+
 
 # Editar Mesa
 def editar_mesa(request, id):
@@ -85,46 +91,20 @@ def eliminar_mesa(request, id):
     messages.success(request, 'Mesa eliminada correctamente')
     return redirect('mesas')
 
-
-# CLIENTES
-def clientes(request):
-    clientes = Cliente.objects.all()
-    return render(request, 'clientes.html', {'clientes': clientes})
-
-def nuevo_cliente(request):
-    form = ClienteForm(request.POST or None)
-    if request.method == 'POST':
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Cliente creado exitosamente')
-            return redirect('clientes')
-        else:
-            messages.error(request, 'Error al crear el cliente.')
-    return render(request, 'formscliente.html', {'form': form, 'accion': 'Crear'})
-
-def editar_cliente(request, id):
-    cliente = Cliente.objects.get(id=id)
-    form = ClienteForm(request.POST or None, instance=cliente)
-    if request.method == 'POST':
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Cliente actualizado correctamente')
-            return redirect('clientes')
-        else:
-            messages.error(request, 'Error al actualizar el cliente.')
-    return render(request, 'formscliente.html', {'form': form, 'accion': 'Editar'})
-
-def eliminar_cliente(request, id):
-    cliente = Cliente.objects.get(id=id)
-    cliente.delete()
-    messages.success(request, 'Cliente eliminado correctamente')
-    return redirect('clientes')
+def desactivar_mesa(request, id):
+    mesa = get_object_or_404(Mesa, id=id)
+    mesa.estado = 'inactivo'
+    mesa.save()
+    messages.success(request, 'Mesa desactivado correctamente')
+    return redirect('mesas')
 
 
 @login_required
 def home(request):
     usuarios = Usuario.objects.all()
-    reservas = Reserva.objects.count()
+    reservas = Reserva.objects.filter(
+        fecha_hora__gt=timezone.now()
+    ).count()
     platos = Plato.objects.count()
     mesas = Mesa.objects.count()
     return render(request, 'inicio.html', {

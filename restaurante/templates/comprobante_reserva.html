@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #333;
+            padding: 4px;
+            text-align: left;
+        }
+
+        .datos-cliente {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Comprobante de Reserva</h2>
+
+    <p><strong>Reserva N°:</strong> {{ reserva.id }}</p>
+    <p><strong>Fecha y hora:</strong> {{ reserva.fecha_hora|date:"d/m/Y H:i" }}</p>
+    <p><strong>Cantidad de personas:</strong> {{ reserva.cant_personas }}</p>
+    <p><strong>Mesa:</strong> {{ reserva.mesa }}</p>
+    <p><strong>Método de pago:</strong> {{ reserva.metodo_pago }}</p>
+
+    <div class="datos-cliente">
+        <h3>📝 Datos del Cliente</h3>
+        <p><strong>Tipo de cliente:</strong> {{ reserva.cliente.tipo_cliente|title }}</p>
+
+        {% if reserva.cliente.tipo_cliente == 'persona' %}
+        <p><strong>Nombres:</strong> {{ reserva.cliente.nombres }}</p>
+        <p><strong>Apellidos:</strong> {{ reserva.cliente.apellidos }}</p>
+        <p><strong>DNI:</strong> {{ reserva.cliente.dni }}</p>
+        {% elif reserva.cliente.tipo_cliente == 'empresa' %}
+        <p><strong>Razón Social:</strong> {{ reserva.cliente.razon_social }}</p>
+        <p><strong>RUC:</strong> {{ reserva.cliente.ruc }}</p>
+        {% endif %}
+
+        <p><strong>Teléfono:</strong> {{ reserva.cliente.telefono }}</p>
+        <p><strong>Correo:</strong> {{ reserva.cliente.correo }}</p>
+        <p><strong>Dirección:</strong> {{ reserva.cliente.direccion }}</p>
+    </div>
+
+    <h3>🍽️ Detalle de Platos</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Plato</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for detalle in detalles %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ detalle.plato.nombre }}</td>
+                <td>{{ detalle.cantidad }}</td>
+                <td>S/. {{ detalle.plato.precio|floatformat:2 }}</td>
+                <td>S/. {{ detalle.monto|floatformat:2 }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <p style="text-align: right; margin-top: 20px;"><strong>Total:</strong> S/. {{ reserva.total|floatformat:2 }}</p>
+
+    <hr>
+    <p style="text-align: center;">¡Gracias por su preferencia!</p>
+</body>
+
+</html>
