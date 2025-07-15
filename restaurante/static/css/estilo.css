@@ -369,6 +369,25 @@ select {
 }
 
 
+ form {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  form p {
+    margin-bottom: 15px;
+  }
+
+  form input, 
+  form select, 
+  form textarea {
+    width: 100%;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+
 
 
 /* ======= RESPONSIVE PARA MÓVILES ======= */

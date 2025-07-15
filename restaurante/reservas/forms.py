@@ -61,9 +61,8 @@ class ReservaForm(forms.ModelForm):
     class Meta:
         model = Reserva
         fields = [
-            'fecha_hora', 'cant_personas', 'metodo_pago', 'estado',
-            'tipo', 'total', 'cliente', 'empleado', 'mesa'
-        ]
+            'fecha_hora', 'cant_personas'
+]
         widgets = {
             'fecha_hora': forms.DateTimeInput(attrs={
                 'type': 'datetime-local', 'class': 'form-control'
@@ -71,11 +70,4 @@ class ReservaForm(forms.ModelForm):
             'cant_personas': forms.NumberInput(attrs={
                 'class': 'form-control', 'placeholder': 'Cantidad de personas'
             }),
-            'metodo_pago': forms.TextInput(attrs={'class': 'form-control'}),
-            'estado': forms.TextInput(attrs={'class': 'form-control'}),
-            'tipo': forms.TextInput(attrs={'class': 'form-control'}),
-            'total': forms.NumberInput(attrs={'class': 'form-control'}),
-            'cliente': forms.Select(attrs={'class': 'form-control'}),
-            'empleado': forms.Select(attrs={'class': 'form-control'}),
-            'mesa': forms.Select(attrs={'class': 'form-control'}),
-        }
+            }
