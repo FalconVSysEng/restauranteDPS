@@ -22,12 +22,13 @@
             </div>
         {% endif %} {% endfor %}
     </header>
-    <table border="1" style="width:100%;">
+    <table border="1" class="tabla-platos">
         <thead>
             <tr>
                 <th>#</th>
                 <th>Capacidad</th>
                 <th>Ubicacion</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -36,10 +37,14 @@
                 <td>{{ forloop.counter }}</td>
                 <td>{{ mesa.capacidad }}</td>
                 <td>{{ mesa.ubicacion }}</td>
+                <td>
+                  <a href="{% url 'editar_mesa' mesa.id %}" class="btn-consultar">Editar</a>
+                  <a href="{% url 'eliminar_mesa' mesa.id %}" class="btn-consultar" onclick="return confirm('¿Seguro que deseas eliminar esta mesa?');">Eliminar</a>
+                </td>
             </tr>
             {% empty %}
             <tr>
-                <td colspan="4">No hay mesas registradas.</td>
+                <td colspan="5">No hay mesas registradas.</td>
             </tr>
             {% endfor %}
         </tbody>

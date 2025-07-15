@@ -35,15 +35,17 @@ class Reserva(models.Model):
 
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     empleado = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True, blank=True)
-    mesa = models.ForeignKey(Mesa, on_delete=models.SET_NULL, null=True, blank=True)
+    mesa = models.ForeignKey('gestion.Mesa', on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return f"Reserva {self.id} - {self.fecha_hora}"
 
 class DetalleReserva(models.Model):
-    reserva = models.ForeignKey(Reserva, on_delete=models.CASCADE, related_name="detalles")
+    reserva = models.ForeignKey(Reserva, on_delete=models.CASCADE)
     plato = models.ForeignKey(Plato, on_delete=models.CASCADE)
-    cantidad = models.PositiveIntegerField()
-
+    cantidad = models.IntegerField()
+    @property
+    def subtotal(self):
+        return self.plato.precio * self.cantidad
     def __str__(self):
         return f"{self.cantidad} x {self.plato.nombre} (Reserva {self.reserva.id})"  

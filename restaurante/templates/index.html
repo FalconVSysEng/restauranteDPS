@@ -7,113 +7,68 @@
 {% url 'clientes' as clientes_url %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel</title>
     <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
-    <title>Document</title>
 </head>
 <body>
-    <div>
+
+<!-- 🔘 Botón toggle (fuera del layout) -->
+<button id="sidebar-toggle">☰</button>
+
+<!-- 🌐 Contenedor principal -->
+<div class="layout">
+
+    <!-- 🧭 Sidebar -->
+    <div id="sidebar">
         <div>
-            <div>
-                <div id="sidebar">
-                    <div>
-                        <div>
-                            <div>
-                                <div>
-                                    <h2>
-                                        ¡Hola, {{ user.username }}! 👋
-                                    </h2>
-                                    <p>
-                                        {{ user.last_name }}
-                                    </p>
-                                    {% if user.is_staff %}
-                                    <span>⭐ Administrador</span>
-                                    {% else %}
-                                    <span>👤 Empleado</span>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
-                        <nav>
-                            <div>
-                                <h3>📍 Navegación</h3>
-                                <a href="{{ home }}">
-                                    <span>
-                                        <span>🏠</span>
-                                        <span>Inicio</span>
-                                    </span>
-                                </a>
-                                <a href="{{ reservas_url }}">
-                                    <span>
-                                        <span>💬</span>
-                                        <span>Reservas</span>
-                                    </span>
-                                </a>
-                            </div>
-                            {% if user.is_staff %}
-                            <div>
-                                <h3>🛡️ Administración</h3>
-                                <a href="{{ platos_url }}">
-                                    <span>
-                                        <span>👥</span>
-                                        <span>Platos</span>
-                                    </span>
-                                </a>
-                                <a href="{{ mesas_url }}">
-                                    <span>
-                                        <span>📂</span>
-                                        <span>Mesas</span>
-                                    </span>
-                                </a>
-                                <a href="{{ clientes_url }}">
-                                    <span>
-                                        <span>👥</span>
-                                        <span>Clientes</span>
-                                    </span>
-                                </a>
-                            </div>
-                            {% endif %}
-                        </nav>
-                        <div>
-                            <a href="{{ cerrarsesion }}">
-                                <span>
-                                    <span>🚪</span>
-                                    <span>Cerrar Sesión</span>
-                                </span>
-                            </a>
-                        </div>
-                    </div>
-                    <div id="sidebar-overlay"></div>
-                    <button id="sidebar-toggle">
-                        <span>☰</span>
-                    </button>
-                </div>
-            </div>
-
+            <h2>¡Hola, {{ user.username }}! 👋</h2>
+            <p>{{ user.last_name }}</p>
+            {% if user.is_staff %}
+                <span>⭐ Administrador</span>
+            {% else %}
+                <span>👤 Empleado</span>
+            {% endif %}
         </div>
-        <div>
-            {%block content%} {%endblock%}
+
+        <nav>
+            <h3>📍 Navegación</h3>
+            <a href="{% url 'home' %}">🏠 Inicio</a>
+            <a href="{% url 'reservas' %}">💬 Reservas</a>
+
+            {% if user.is_staff %}
+            <h3>🛡️ Administración</h3>
+            <a href="{% url 'platos' %}">🍽️ Platos</a>
+            <a href="{% url 'mesas' %}">📂 Mesas</a>
+            <a href="{% url 'clientes' %}">👥 Clientes</a>
+            {% endif %}
+        </nav>
+
+        <div class="logout">
+            <a href="{% url 'cerrar_sesion' %}">🚪 Cerrar Sesión</a>
         </div>
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const sidebar = document.getElementById('sidebar');
-                const overlay = document.getElementById('sidebar-overlay');
-                const toggle = document.getElementById('sidebar-toggle');
+    </div>
 
-                toggle.addEventListener('click', function () {
-                    sidebar.classList.toggle('-translate-x-full');
-                    overlay.classList.toggle('hidden');
-                });
+    <!-- 📄 Contenido -->
+    <div id="main-content">
+        {% block content %}{% endblock %}
+    </div>
+</div>
 
-                overlay.addEventListener('click', function () {
-                    sidebar.classList.add('-translate-x-full');
-                    overlay.classList.add('hidden');
-                });
-            });
-        </script>
+<!-- 📜 Script toggle -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const sidebar = document.getElementById('sidebar');
+    const toggle = document.getElementById('sidebar-toggle');
+
+    toggle.addEventListener('click', function () {
+        sidebar.classList.toggle('show');
+    });
+});
+</script>
+
 </body>
-
 </html>

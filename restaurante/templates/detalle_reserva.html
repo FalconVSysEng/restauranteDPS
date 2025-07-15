@@ -1,0 +1,37 @@
+{% extends 'index.html' %}
+{% block content %}
+<main class="main">
+    <header class="header">
+        <h2>Detalle de Reserva</h2>
+        <a href="{% url 'reservas' %}">← Volver</a>
+    </header>
+
+    <p><strong>Cliente:</strong> {{ reserva.cliente }}</p>
+    <p><strong>Fecha y Hora:</strong> {{ reserva.fecha_hora }}</p>
+    <p><strong>Mesa:</strong> {{ reserva.mesa }}</p>
+    <p><strong>Cantidad de personas:</strong> {{ reserva.cant_personas }}</p>
+    <p><strong>Estado:</strong> {{ reserva.estado }}</p>
+    <p><strong>Total:</strong> S/. {{ reserva.total }}</p>
+
+    <h3>Platos reservados:</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Plato</th>
+                <th>Cantidad</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for detalle in detalles %}
+            <tr>
+                <td>{{ detalle.plato.nombre }}</td>
+                <td>{{ detalle.cantidad }}</td>
+                <td>S/. {{ detalle.subtotal|floatformat:2 }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <p>Detalles encontrados: {{ detalles|length }}</p>
+    </table>
+</main>
+{% endblock %}

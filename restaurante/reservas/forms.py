@@ -1,5 +1,6 @@
 from django import forms
 from .models import Cliente
+from .models import Reserva
 
 class ClienteForm(forms.ModelForm):
     class Meta:
@@ -8,6 +9,17 @@ class ClienteForm(forms.ModelForm):
             'tipo_cliente', 'dni', 'ruc', 'nombres', 'apellidos',
             'razon_social', 'telefono', 'correo', 'direccion'
         ]
+        widgets = {
+            'tipo_cliente': forms.Select(attrs={'class': 'form-control'}),
+            'dni': forms.TextInput(attrs={'class': 'form-control'}),
+            'ruc': forms.TextInput(attrs={'class': 'form-control'}),
+            'nombres': forms.TextInput(attrs={'class': 'form-control'}),
+            'apellidos': forms.TextInput(attrs={'class': 'form-control'}),
+            'razon_social': forms.TextInput(attrs={'class': 'form-control'}),
+            'telefono': forms.TextInput(attrs={'class': 'form-control'}),
+            'correo': forms.EmailInput(attrs={'class': 'form-control'}),
+            'direccion': forms.TextInput(attrs={'class': 'form-control'}),
+        }
 
     def clean(self):
         cleaned_data = super().clean()
@@ -45,7 +57,17 @@ class ClienteForm(forms.ModelForm):
         return cleaned_data
 
 
-class ReservaForm(forms.Form):
-    fecha = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
-    hora = forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time'}))
-    cant_personas = forms.IntegerField(min_value=1)
+class ReservaForm(forms.ModelForm):
+    class Meta:
+        model = Reserva
+        fields = [
+            'fecha_hora', 'cant_personas'
+]
+        widgets = {
+            'fecha_hora': forms.DateTimeInput(attrs={
+                'type': 'datetime-local', 'class': 'form-control'
+            }),
+            'cant_personas': forms.NumberInput(attrs={
+                'class': 'form-control', 'placeholder': 'Cantidad de personas'
+            }),
+            }
